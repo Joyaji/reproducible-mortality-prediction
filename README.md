@@ -80,9 +80,9 @@ Systematic_Review/
 │   └── TECHNICAL_REPORT.md        # Automatic technical report
 │
 ├── docs/                          # Technical documentation
-│   ├── GERADOR_DADOS_SINTETICOS.md     # Generator documentation
-│   ├── CONFIGURACAO_PARAMETROS.md      # Parameters reference
-│   └── MODELO_DEEP_LEARNING.md         # DL model documentation
+│   ├── SYNTHETIC_DATA_GENERATOR.md     # Generator documentation
+│   ├── CONFIGURATION_PARAMETERS.md     # Parameters reference
+│   └── DEEP_LEARNING_MODEL.md          # DL model documentation
 ```
 
 ## 🚀 Initial Setup
@@ -91,7 +91,7 @@ Systematic_Review/
 
 ```bash
 python3 -m venv venv
-source venv/bin/activate  # No Mac/Linux
+source venv/bin/activate  # On Mac/Linux
 ```
 
 ### 2. Install dependencies
@@ -143,7 +143,7 @@ head data/in-hospital-mortality/train/listfile.csv
 - Individual variability (anti-overfitting)
 - Multivariate mortality model
 
-📚 **Complete documentation:** `docs/GERADOR_DADOS_SINTETICOS.md`
+📚 **Complete documentation:** `docs/SYNTHETIC_DATA_GENERATOR.md`
 
 
 ## 🧠 Model Architecture
