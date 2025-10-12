@@ -1,0 +1,52 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "Reproducible Mortality Prediction: LSTM with Focal Loss and Calibration"
+abstract: "Open-source, reproducible implementation of LSTM-based mortality prediction with Focal Loss, calibration, and synthetic MIMIC-III data generation. Replication study of Rajkomar et al. (2018) with complete documentation and reproduction guide."
+authors:
+  - family-names: "Lehdermann Silveira"
+    given-names: "André"
+    affiliation: "Universidade do Vale do Rio dos Sinos (Unisinos)"
+repository-code: "https://github.com/lehdermann/reproducible-mortality-prediction"
+url: "https://github.com/lehdermann/reproducible-mortality-prediction"
+license: MIT
+version: 1.0.0
+date-released: 2025-10-11
+keywords:
+  - deep learning
+  - LSTM
+  - mortality prediction
+  - MIMIC-III
+  - focal loss
+  - model calibration
+  - synthetic data
+  - reproducibility
+  - open science
+references:
+  - type: article
+    authors:
+      - family-names: Rajkomar
+        given-names: Alvin
+      - family-names: Oren
+        given-names: Eyal
+      - family-names: Chen
+        given-names: Kai
+    title: "Scalable and accurate deep learning with electronic health records"
+    journal: "npj Digital Medicine"
+    volume: 1
+    issue: 1
+    year: 2018
+    doi: 10.1038/s41746-018-0029-1
+  - type: article
+    authors:
+      - family-names: Johnson
+        given-names: Alistair E. W.
+      - family-names: Pollard
+        given-names: Tom J.
+      - family-names: Shen
+        given-names: Lu
+    title: "MIMIC-III, a freely accessible critical care database"
+    journal: "Scientific Data"
+    volume: 3
+    year: 2016
+    doi: 10.1038/sdata.2016.35

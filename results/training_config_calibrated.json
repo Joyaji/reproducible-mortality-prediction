@@ -1,0 +1,22 @@
+{
+  "model": {
+    "lstm_units": 64,
+    "dropout": 0.5,
+    "recurrent_dropout": 0.3,
+    "l2_reg": 0.01
+  },
+  "training": {
+    "epochs": 50,
+    "batch_size": 64,
+    "learning_rate": 0.0003,
+    "use_focal_loss": true
+  },
+  "data": {
+    "train_samples": 16972,
+    "val_samples": 3740,
+    "test_samples": 3615,
+    "train_mortality": 0.20952156493047372,
+    "val_mortality": 0.19759358288770054,
+    "test_mortality": 0.20802213001383127
+  }
+}

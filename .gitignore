@@ -1,0 +1,73 @@
+# Python
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Data - Real MIMIC-III (cannot be shared publicly)
+data/root/
+data/in-hospital-mortality*/
+
+# Data - Large synthetic datasets (keep only small example)
+data/mimic3_synthetic/train/
+data/mimic3_synthetic/test/
+data/mimic3_synthetic_v2_1/
+# Keep: data/mimic3_synthetic_v3/ (small example for reproducibility)
+
+# Models - Large files (optional: use Git LFS or releases)
+models/*.h5
+models/*.pb
+models/scaler.pkl
+# Consider keeping for reproducibility:
+# !models/best_model_calibrated.keras
+# !models/calibrator.pkl
+# !models/optimal_threshold.txt
+
+# Logs (generated during execution)
+logs/
+*.log
+
+# Results - Ignore generated files, keep reference outputs
+results/plots/*.png
+!results/plots/roc_curve.png
+!results/plots/summary_metrics.png
+!results/plots/comparison_table.png
+results/*.npy
+results/*.pdf
+!results/*.json
+!results/*.md
+
+# Documentation - Keep compiled paper
+!docs/*.pdf
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.bak
+
+# Archived - Not versioned (local reference only)
+# Includes: LaTeX source, Portuguese docs, planning/analysis documents
+archived/
+
+# External dependencies (cloned repositories)
+mimic3-benchmarks/
+
+# Old project directories (not part of current structure)
+systematic_review/
