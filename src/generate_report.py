@@ -427,129 +427,55 @@ Died            {metrics['confusion_matrix']['fn']:4d}    {metrics['confusion_ma
 
 ---
 
-## 💡 Discussion
+## 🔍 Key Findings
 
-### **Performance Analysis**
+### **Model Performance**
 
-**AUROC: {auroc:.4f}**
-- {interpret_auroc(auroc).replace('✅ ', '').replace('⚠️ ', '').replace('❌ ', '')}
-- AUROC = 0.5 represents random classification
-- AUROC > 0.8 is considered good for clinical applications
+**Discrimination Ability:**
+- AUROC: {auroc:.4f} - {interpret_auroc(auroc).replace('✅ ', '').replace('⚠️ ', '').replace('❌ ', '')}
+- AUPRC: {auprc:.4f} vs baseline prevalence of {(metrics['confusion_matrix']['tp'] + metrics['confusion_matrix']['fn']) / (metrics['confusion_matrix']['tn'] + metrics['confusion_matrix']['fp'] + metrics['confusion_matrix']['fn'] + metrics['confusion_matrix']['tp']) * 100:.1f}%
 
-**Accuracy: {accuracy:.4f} ({accuracy * 100:.1f}%)**
-- Error rate: {(1 - accuracy) * 100:.1f}%
-- {metrics['confusion_matrix']['fp']} false positives (survivors predicted as deaths)
-- {metrics['confusion_matrix']['fn']} false negatives (deaths not detected)
-
-**Precision-Recall Trade-off:**
+**Classification Metrics (Threshold = {metrics['threshold']:.3f}):**
 - Recall: {recall:.4f} ({recall * 100:.1f}% of deaths detected)
 - Precision: {precision:.4f} ({precision * 100:.1f}% of death predictions correct)
-- F1-Score: {f1:.4f} (balance between precision and recall)
+- F1-Score: {f1:.4f}
+- Accuracy: {accuracy:.4f}
 
-### **Strengths**
+**Error Analysis:**
+- Total errors: {metrics['confusion_matrix']['fp'] + metrics['confusion_matrix']['fn']} / {metrics['confusion_matrix']['tn'] + metrics['confusion_matrix']['fp'] + metrics['confusion_matrix']['fn'] + metrics['confusion_matrix']['tp']} ({(metrics['confusion_matrix']['fp'] + metrics['confusion_matrix']['fn']) / (metrics['confusion_matrix']['tn'] + metrics['confusion_matrix']['fp'] + metrics['confusion_matrix']['fn'] + metrics['confusion_matrix']['tp']) * 100:.1f}%)
+- False positives: {metrics['confusion_matrix']['fp']} (survivors predicted as deaths)
+- False negatives: {metrics['confusion_matrix']['fn']} (deaths not detected)
 
-1. **Optimized Threshold:** {metrics['threshold']:.3f} (not default 0.5)
-2. **Applied Calibration:** Isotonic Regression to improve probabilities
-3. **Focal Loss:** Handles class imbalance
-4. **Regularization:** Dropout and L2 to prevent overfitting
+### **Calibration Quality**
 
-### **Limitations and Identified Issues**
+**Probability Distribution:**
+- Range: [{metrics['probability_stats']['min']:.4f}, {metrics['probability_stats']['max']:.4f}]
+- Mean: {metrics['probability_stats']['mean']:.4f}
+- Median: {metrics['probability_stats']['median']:.4f}
+- Std: {metrics['probability_stats']['std']:.4f}
 
-1. **Synthetic Data:** Performance may not reflect real-world scenario
-2. **Small Dataset:** {metrics['confusion_matrix']['tn'] + metrics['confusion_matrix']['fp'] + metrics['confusion_matrix']['fn'] + metrics['confusion_matrix']['tp']} cases in test set
-3. **Possible Overfitting:** Check if probabilities are too extreme (mean: {metrics['probability_stats']['mean']:.4f})
-4. **Imbalance:** Mortality rate of {(metrics['confusion_matrix']['tp'] + metrics['confusion_matrix']['fn']) / (metrics['confusion_matrix']['tn'] + metrics['confusion_matrix']['fp'] + metrics['confusion_matrix']['fn'] + metrics['confusion_matrix']['tp']) * 100:.1f}%
+**Calibration Method:** Isotonic Regression applied post-training
 
-### **Comparison with Literature**
+### **Model Configuration**
 
-| Study | Dataset | Model | AUROC |
-|--------|---------|--------|-------|
-| **This Work** | Synthetic MIMIC-III | LSTM + Calibration | **{auroc:.4f}** |
-| Harutyunyan et al. (2019) | Real MIMIC-III | LSTM | 0.8590 |
-| Purushotham et al. (2018) | Real MIMIC-III | GRU | 0.8420 |
-| Johnson et al. (2020) | Real MIMIC-III | Transformer | 0.8780 |
+**Techniques Applied:**
+- Focal Loss (gamma=2.0, alpha=0.25) for class imbalance
+- Isotonic calibration for probability reliability
+- Optimized threshold ({metrics['threshold']:.3f}) via F1-Score maximization
+- Regularization: Dropout ({training_config['model']['dropout'] * 100:.0f}%), Recurrent Dropout ({training_config['model']['recurrent_dropout'] * 100:.0f}%), L2 ({training_config['model']['l2_reg']})
 
-**Note:** Validation on real MIMIC-III data is critical to evaluate real performance.
+### **Data Characteristics**
 
----
-
-## 🚀 Future Work
-
-### **Immediate Priorities**
-
-1. **Error Analysis** - Identify systematic failure patterns and edge cases
-2. **Feature Importance** - Determine which clinical variables contribute most to predictions
-
-### **Model Improvements**
-
-1. **Improve synthetic data variability** - Add more stochastic patterns to reduce overfitting
-2. **Hyperparameter optimization** - Systematic search for optimal model configuration
-3. **Comparison with baseline models** - Evaluate against Logistic Regression, XGBoost, Random Forest
-4. **Interpretability analysis** - Implement SHAP or LIME for model explainability
-
-### **Validation and Deployment**
-
-1. **Validation on real MIMIC-III data** - Critical step to confirm generalization
-2. **External validation** - Test on other datasets (eICU, MIMIC-IV)
-3. **Clinical deployment** - Integration into clinical decision support system
-4. **Prospective evaluation** - Real-world performance assessment
-5. **Scientific publication** - Disseminate findings to research community
+**Dataset:** Synthetic MIMIC-III
+- Test set size: {metrics['confusion_matrix']['tn'] + metrics['confusion_matrix']['fp'] + metrics['confusion_matrix']['fn'] + metrics['confusion_matrix']['tp']} episodes
+- Mortality rate: {(metrics['confusion_matrix']['tp'] + metrics['confusion_matrix']['fn']) / (metrics['confusion_matrix']['tn'] + metrics['confusion_matrix']['fp'] + metrics['confusion_matrix']['fn'] + metrics['confusion_matrix']['tp']) * 100:.1f}%
+- Class imbalance ratio: 1:{(metrics['confusion_matrix']['tn'] + metrics['confusion_matrix']['fp']) / (metrics['confusion_matrix']['tp'] + metrics['confusion_matrix']['fn']):.1f}
 
 ---
 
-## 📚 References
+## 📝 Summary
 
-### **Main References**
-
-1. **Rajkomar, A., et al. (2018).** Scalable and accurate deep learning with electronic health records. *npj Digital Medicine*, 1(1), 18. https://doi.org/10.1038/s41746-018-0029-1
-2. **Harutyunyan, H., et al. (2019).** Multitask learning and benchmarking with clinical time series data. *Scientific Data*, 6(1), 96. https://doi.org/10.1038/s41597-019-0103-9
-3. **Johnson, A. E., et al. (2016).** MIMIC-III, a freely accessible critical care database. *Scientific Data*, 3(1), 160035. https://doi.org/10.1038/sdata.2016.35
-
-### **Synthetic Data Generator**
-
-4. **Emmanuel, T., et al. (2021).** A survey on missing data in machine learning. *Journal of Big Data*, 8(1), 1-37. https://doi.org/10.1186/s40537-021-00516-9
-5. **Farahani, A., et al. (2021).** A brief review of domain adaptation. *Advances in Data Science and Information Engineering*, 877-894. https://doi.org/10.1007/978-3-030-71704-9_65
-6. **Johnson, J. M., & Khoshgoftaar, T. M. (2019).** Survey on deep learning with class imbalance. *Journal of Big Data*, 6(1), 1-54. https://doi.org/10.1186/s40537-019-0192-5
-7. **Song, H., et al. (2022).** Learning from noisy labels with deep neural networks: A survey. *IEEE Transactions on Neural Networks and Learning Systems*, 34(11), 8135-8153. https://arxiv.org/abs/2007.08199
-
-### **Deep Learning Techniques**
-
-8. **Lin, T. Y., et al. (2017).** Focal loss for dense object detection. *Proceedings of the IEEE ICCV*, 2980-2988. https://arxiv.org/abs/1708.02002
-9. **Zadrozny, B., & Elkan, C. (2002).** Transforming classifier scores into accurate multiclass probability estimates. *Proceedings of ACM SIGKDD*, 694-699. https://doi.org/10.1145/775047.775151
-
-### **Comparison Studies**
-
-10. **Purushotham, S., et al. (2018).** Benchmarking deep learning models on large healthcare datasets. *Journal of Biomedical Informatics*, 83, 112-134. https://doi.org/10.1016/j.jbi.2018.04.007
-
-**Note:** All references are open access or have preprints available.
-
----
-
-## 📝 Conclusion
-
-The model developed for in-hospital mortality prediction on synthetic MIMIC-III data presents the following results:
-
-**Main Metrics:**
-- **AUROC:** {auroc:.4f} - {interpret_auroc(auroc).replace('✅ ', '').replace('⚠️ ', '').replace('❌ ', '')}
-- **F1-Score:** {f1:.4f} - {interpret_metric(f1, 'f1_score').replace('✅ ', '').replace('⚠️ ', '').replace('❌ ', '')}
-- **Recall:** {recall:.4f} ({recall*100:.1f}% of deaths detected)
-- **Precision:** {precision:.4f} ({precision*100:.1f}% of death predictions correct)
-- **Accuracy:** {accuracy:.4f} (error rate: {(1-accuracy)*100:.1f}%)
-
-**Overall Assessment:**
-{overall_assessment}
-
-**Techniques Used:**
-- ✅ **Focal Loss:** To handle class imbalance
-- ✅ **Post-Training Calibration:** Isotonic Regression
-- ✅ **Optimized Threshold:** {metrics['threshold']:.3f} (maximizes F1-Score)
-- ✅ **Regularization:** Dropout ({training_config['model']['dropout'] * 100:.0f}%) and L2 ({training_config['model']['l2_reg']})
-
-**Critical Next Steps:**
-1. **Investigate extreme probabilities** (mean: {metrics['probability_stats']['mean']:.4f}, median: {metrics['probability_stats']['median']:.4f})
-2. **Validation on real MIMIC-III data** to confirm generalization
-3. **Comparison with baseline** (Logistic Regression)
-4. **Error analysis** to identify failure patterns
+This technical report documents the performance of an LSTM-based mortality prediction model trained on synthetic MIMIC-III data. The model achieves AUROC of {auroc:.4f} with high recall ({recall:.4f}) at the cost of moderate precision ({precision:.4f}), reflecting the prioritization of death detection over false alarms. All visualizations and metrics are reproducible using the provided codebase
 
 ---
 
