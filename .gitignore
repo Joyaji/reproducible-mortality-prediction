@@ -46,6 +46,17 @@ results/plots/*.png
 !results/plots/roc_curve.png
 !results/plots/summary_metrics.png
 !results/plots/comparison_table.png
+!results/plots/calibration_curve.png
+!results/plots/confusion_matrix.png
+!results/plots/fbeta_vs_threshold.png
+!results/plots/improvement_chart.png
+!results/plots/learning_curves_dl.png
+!results/plots/metrics_comparison.png
+!results/plots/pr_comparison.png
+!results/plots/precision_recall_curve.png
+!results/plots/probability_distribution.png
+!results/plots/roc_comparison.png
+!results/plots/threshold_vs_metrics.png
 results/*.npy
 results/*.pdf
 !results/*.json
